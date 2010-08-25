@@ -21,7 +21,7 @@ class GravatarApi
   protected $defaults = array(
     'size' => 80,
     'rating' => 'g',
-    'default' => '',
+    'default' => null,
   );
   
   /**
@@ -75,8 +75,8 @@ class GravatarApi
     
     if(curl_exec($ch) !== false){
         return true;
-    }else{
-      return false;  
     }
+    
+    return false; 
   } 
 }
