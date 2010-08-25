@@ -21,7 +21,7 @@ class GravatarApi
   protected $defaults = array(
     'size' => 80,
     'rating' => 'g',
-    'default' => null,
+    'default' => '',
   );
   
   /**
@@ -62,13 +62,21 @@ class GravatarApi
    *
    * @param string $email 
    * @return boolean
-   * @todo VERY SLOW (due to get_headers, feel free to fork :))
+   * @todo Slow 
    */
   public function has($email)
   {
-    $headers = get_headers($this->get($email));
-    $header = substr($headers[0], 9, 3);
+    $url = $this->get($email, null, null, 404);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_NOBODY, 1);
+    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     
-    return ($header == '200');
+    if(curl_exec($ch) !== false){
+        return true;
+    }else{
+      return false;  
+    }
   } 
 }

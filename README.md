@@ -40,7 +40,7 @@ With parameters:
 Or :
       <img src="<?php echo gravatar_image('name@domain.com', 140, 'G'); ?>" />
     
-You can check if an email as a gravatar (warning, very slow due to get_headers() php function)
+You can check if an email as a gravatar (warning, slow due to curl function)
 
       <?php if(gravatar_has_image('name@domain.com')): ?>  
         <!-- -->
